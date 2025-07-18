@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Display | rackpo.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 { color: #2c3e50; }
+        .data-card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .data-item:last-child { border-bottom: none; }
+        .value { font-weight: bold; color: #3498db; }
+        .timestamp { font-size: 0.9em; color: #7f8c8d; }
+    </style>
+</head>
+<body>
+    <h1>Live Data Display</h1>
+    <p>Showing sample data with automatic refresh</p>
+    
+    <div class="data-card">
+        <h2>Sensor Readings</h2>
+        <div id="sensor-data">
+            <!-- Data will appear here -->
+            <p>Loading data...</p>
+        </div>
+    </div>
+
+    <script>
+        // Sample data - replace with your actual data source
+        const sampleData = {
+            temperature: 24.5,
+            humidity: 62,
+            pressure: 1012,
+            status: "Normal",
+            lastUpdated: new Date().toLocaleTimeString()
+        };
+
+        // Function to display data
+        function displayData(data) {
+            document.getElementById('sensor-data').innerHTML = `
+                <div class="data-item">
+                    <span>Temperature:</span>
+                    <span class="value">${data.temperature} °C</span>
+                </div>
+                <div class="data-item">
+                    <span>Humidity:</span>
+                    <span class="value">${data.humidity}%</span>
+                </div>
+                <div class="data-item">
+                    <span>Pressure:</span>
+                    <span class="value">${data.pressure} hPa</span>
+                </div>
+                <div class="data-item">
+                    <span>Status:</span>
+                    <span class="value">${data.status}</span>
+                </div>
+                <div class="timestamp">
+                    Last updated: ${data.lastUpdated}
+                </div>
+            `;
+        }
+
+        // Initial display
+        displayData(sampleData);
+
+        // Auto-refresh every 5 seconds (optional)
+        setInterval(() => {
+            sampleData.lastUpdated = new Date().toLocaleTimeString();
+            // Simulate small data changes
+            sampleData.temperature = (24 + Math.random()).toFixed(1);
+            displayData(sampleData);
+        }, 5000);
+    </script>
+</body>
+</html>
